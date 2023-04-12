@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import {logging} from '../../middleware/logging.middleware';
 import {globalErrorHandler} from '../../util/error';
 import feedData from './feedData.endpoint';
+import modifyPrices from './modifyPrices.endpoint';
 
 const app = express();
 app.use(cors({origin: true}));
@@ -15,7 +16,8 @@ app.get('/', (req, res) => {
   res.send({});
 });
 
-app.post('/up', feedData);
+app.post('/feed-data', feedData);
+app.post('/modify-prices', modifyPrices);
 
 app.use(globalErrorHandler);
 

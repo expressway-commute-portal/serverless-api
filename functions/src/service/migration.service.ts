@@ -226,3 +226,19 @@ export const feedData = async () => {
 
   logger.info('Seeding completed successfully');
 };
+
+export const modifyPrices = async () => {
+  const snapshot = await admin.firestore().collection('trip').get();
+  await Promise.all(
+    snapshot.docs.map(async doc => {
+      await doc.ref.update({
+        prices: [
+          {
+            price: doc.data().price,
+            serviceType: 'Super Luxury',
+          },
+        ],
+      });
+    }),
+  );
+};
